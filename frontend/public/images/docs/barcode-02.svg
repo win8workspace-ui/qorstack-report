@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" aria-label="Template barcode example" text-rendering="geometricPrecision" shape-rendering="crispEdges">
+  <defs><clipPath id="paper"><rect x="40" y="20" width="720" height="360" rx="10"/></clipPath></defs>
+  <rect width="800" height="400" fill="#f1f5f9"/>
+  <g clip-path="url(#paper)">
+  <rect x="40" y="20" width="720" height="360" fill="#ffffff"/>
+
+  <text x="64" y="60" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" fill="#94a3b8" letter-spacing="1.2" shape-rendering="geometricPrecision">BARCODE PLACEHOLDER</text>
+  <text x="64" y="88" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#0f172a" shape-rendering="geometricPrecision">Inventory SKU barcode</text>
+
+  <!-- Left: marker box with sample barcode -->
+  <rect x="64" y="116" width="280" height="240" fill="#f8fafc" stroke="#cbd5e1" stroke-dasharray="6 4"/>
+  <text x="204" y="216" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" fill="#94a3b8" letter-spacing="1.2" shape-rendering="geometricPrecision">BARCODE PLACEHOLDER</text>
+  <text x="204" y="246" text-anchor="middle" font-family="Menlo, Consolas, monospace" font-size="14" font-weight="700" fill="#2563eb" shape-rendering="geometricPrecision">{{barcode:sku}}</text>
+  <!-- Sample barcode -->
+  <g fill="#0f172a">
+    <rect x="92" y="138" width="2" height="56"/>
+    <rect x="96" y="138" width="4" height="56"/>
+    <rect x="102" y="138" width="2" height="56"/>
+    <rect x="108" y="138" width="6" height="56"/>
+    <rect x="118" y="138" width="2" height="56"/>
+    <rect x="124" y="138" width="3" height="56"/>
+    <rect x="130" y="138" width="2" height="56"/>
+    <rect x="135" y="138" width="5" height="56"/>
+    <rect x="144" y="138" width="2" height="56"/>
+    <rect x="150" y="138" width="4" height="56"/>
+    <rect x="157" y="138" width="3" height="56"/>
+    <rect x="163" y="138" width="2" height="56"/>
+    <rect x="168" y="138" width="6" height="56"/>
+    <rect x="178" y="138" width="2" height="56"/>
+    <rect x="183" y="138" width="4" height="56"/>
+    <rect x="190" y="138" width="2" height="56"/>
+    <rect x="196" y="138" width="5" height="56"/>
+    <rect x="204" y="138" width="2" height="56"/>
+    <rect x="210" y="138" width="3" height="56"/>
+    <rect x="216" y="138" width="2" height="56"/>
+    <rect x="221" y="138" width="6" height="56"/>
+    <rect x="230" y="138" width="3" height="56"/>
+    <rect x="236" y="138" width="2" height="56"/>
+    <rect x="241" y="138" width="4" height="56"/>
+    <rect x="248" y="138" width="2" height="56"/>
+    <rect x="253" y="138" width="5" height="56"/>
+    <rect x="261" y="138" width="2" height="56"/>
+    <rect x="266" y="138" width="3" height="56"/>
+    <rect x="272" y="138" width="2" height="56"/>
+    <rect x="277" y="138" width="4" height="56"/>
+    <rect x="284" y="138" width="2" height="56"/>
+    <rect x="289" y="138" width="6" height="56"/>
+    <rect x="298" y="138" width="2" height="56"/>
+    <rect x="304" y="138" width="4" height="56"/>
+    <rect x="311" y="138" width="2" height="56"/>
+    <rect x="316" y="138" width="5" height="56"/>
+  </g>
+  <text x="204" y="178" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" fill="#0f172a" letter-spacing="2" shape-rendering="geometricPrecision">SKU-99887766</text>
+
+  <!-- Right: JSON binding -->
+  <rect x="376" y="116" width="360" height="240" fill="#0f172a"/>
+  <text x="400" y="146" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" fill="#94a3b8" letter-spacing="1.2" shape-rendering="geometricPrecision">JSON PAYLOAD</text>
+  <text x="400" y="180" font-family="Menlo, Consolas, monospace" font-size="14" fill="#94a3b8" shape-rendering="geometricPrecision">{</text>
+  <text x="416" y="208" font-family="Menlo, Consolas, monospace" font-size="14" fill="#7dd3fc" shape-rendering="geometricPrecision">"barcode"</text>
+  <text x="500" y="208" font-family="Menlo, Consolas, monospace" font-size="14" fill="#94a3b8" shape-rendering="geometricPrecision">: {</text>
+  <text x="432" y="236" font-family="Menlo, Consolas, monospace" font-size="14" fill="#7dd3fc" shape-rendering="geometricPrecision">"sku"</text>
+  <text x="476" y="236" font-family="Menlo, Consolas, monospace" font-size="14" fill="#94a3b8" shape-rendering="geometricPrecision">: {</text>
+  <text x="448" y="262" font-family="Menlo, Consolas, monospace" font-size="14" fill="#a7f3d0" shape-rendering="geometricPrecision">"text": "SKU-99887766",</text>
+  <text x="448" y="286" font-family="Menlo, Consolas, monospace" font-size="14" fill="#a7f3d0" shape-rendering="geometricPrecision">"format": "Code128",</text>
+  <text x="448" y="310" font-family="Menlo, Consolas, monospace" font-size="14" fill="#a7f3d0" shape-rendering="geometricPrecision">"includeText": true</text>
+  <text x="432" y="334" font-family="Menlo, Consolas, monospace" font-size="14" fill="#94a3b8" shape-rendering="geometricPrecision">}</text>
+  </g>
+  <rect x="40" y="20" width="720" height="360" rx="10" fill="none" stroke="#cbd5e1"/>
+</svg>

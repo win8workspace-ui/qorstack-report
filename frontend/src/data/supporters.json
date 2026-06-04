@@ -1,0 +1,23 @@
+{
+  "founder": {
+    "name": "Satang Budsai",
+    "role": "Creator & Maintainer",
+    "avatar": null,
+    "link": "https://github.com/SatangBudsai"
+  },
+  "enterprise": [],
+  "supporters": [
+    {
+      "name": "balarank",
+      "tier": "early-bird",
+      "avatar": null,
+      "link": null
+    },
+    {
+      "name": "Top",
+      "tier": "early-bird",
+      "avatar": null,
+      "link": null
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" aria-label="Template table example" text-rendering="geometricPrecision" shape-rendering="crispEdges">
+  <defs><clipPath id="paper"><rect x="40" y="20" width="720" height="360" rx="10"/></clipPath></defs>
+  <rect width="800" height="400" fill="#f1f5f9"/>
+  <g clip-path="url(#paper)">
+  <rect x="40" y="20" width="720" height="360" fill="#ffffff"/>
+
+  <text x="64" y="60" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" fill="#94a3b8" letter-spacing="1.2" shape-rendering="geometricPrecision">REPEATING TABLE ROW</text>
+  <text x="64" y="88" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#0f172a" shape-rendering="geometricPrecision">Product Catalog</text>
+
+  <!-- Table header -->
+  <rect x="64" y="116" width="672" height="36" fill="#0f172a"/>
+  <text x="84" y="139" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff" letter-spacing="1" shape-rendering="geometricPrecision">CATEGORY</text>
+  <text x="252" y="139" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff" letter-spacing="1" shape-rendering="geometricPrecision">NAME</text>
+  <text x="500" y="139" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff" letter-spacing="1" shape-rendering="geometricPrecision">STOCK</text>
+  <text x="716" y="139" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff" letter-spacing="1" shape-rendering="geometricPrecision">PRICE</text>
+
+  <!-- Row 1: template marker row -->
+  <rect x="64" y="152" width="672" height="44" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="84" y="180" font-family="Menlo, Consolas, monospace" font-size="14" fill="#2563eb" shape-rendering="geometricPrecision">{{row:category}}</text>
+  <text x="252" y="180" font-family="Menlo, Consolas, monospace" font-size="14" fill="#2563eb" shape-rendering="geometricPrecision">{{row:name}}</text>
+  <text x="500" y="180" text-anchor="end" font-family="Menlo, Consolas, monospace" font-size="14" fill="#2563eb" shape-rendering="geometricPrecision">{{row:stock}}</text>
+  <text x="716" y="180" text-anchor="end" font-family="Menlo, Consolas, monospace" font-size="14" fill="#2563eb" shape-rendering="geometricPrecision">{{row:price}}</text>
+
+  <!-- Row 2: rendered preview (faded to show repetition) -->
+  <rect x="64" y="196" width="672" height="40" fill="#f8fafc"/>
+  <text x="84" y="221" font-family="Inter, Arial, sans-serif" font-size="13" fill="#94a3b8" shape-rendering="geometricPrecision">Electronics</text>
+  <text x="252" y="221" font-family="Inter, Arial, sans-serif" font-size="13" fill="#94a3b8" shape-rendering="geometricPrecision">Wireless Mouse</text>
+  <text x="500" y="221" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="13" fill="#94a3b8" shape-rendering="geometricPrecision">120</text>
+  <text x="716" y="221" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="13" fill="#94a3b8" shape-rendering="geometricPrecision">฿ 890</text>
+
+  <rect x="64" y="236" width="672" height="40" fill="#ffffff"/>
+  <text x="84" y="261" font-family="Inter, Arial, sans-serif" font-size="13" fill="#94a3b8" shape-rendering="geometricPrecision">Electronics</text>
+  <text x="252" y="261" font-family="Inter, Arial, sans-serif" font-size="13" fill="#94a3b8" shape-rendering="geometricPrecision">Mechanical Keyboard</text>
+  <text x="500" y="261" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="13" fill="#94a3b8" shape-rendering="geometricPrecision">42</text>
+  <text x="716" y="261" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="13" fill="#94a3b8" shape-rendering="geometricPrecision">฿ 3,200</text>
+
+  <rect x="64" y="276" width="672" height="40" fill="#f8fafc"/>
+  <text x="84" y="301" font-family="Inter, Arial, sans-serif" font-size="13" fill="#94a3b8" shape-rendering="geometricPrecision">Office</text>
+  <text x="252" y="301" font-family="Inter, Arial, sans-serif" font-size="13" fill="#94a3b8" shape-rendering="geometricPrecision">A4 Paper Ream</text>
+  <text x="500" y="301" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="13" fill="#94a3b8" shape-rendering="geometricPrecision">300</text>
+  <text x="716" y="301" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="13" fill="#94a3b8" shape-rendering="geometricPrecision">฿ 145</text>
+
+  <!-- Repeat marker -->
+  <rect x="64" y="336" width="672" height="32" fill="#eff6ff" stroke="#bfdbfe"/>
+  <text x="84" y="357" font-family="Menlo, Consolas, monospace" font-size="13" font-weight="700" fill="#2563eb" shape-rendering="geometricPrecision">repeatHeader: true</text>
+  <text x="240" y="357" font-family="Inter, Arial, sans-serif" font-size="13" fill="#64748b" shape-rendering="geometricPrecision">— one marker row repeats for every data row</text>
+  </g>
+  <rect x="40" y="20" width="720" height="360" rx="10" fill="none" stroke="#cbd5e1"/>
+</svg>

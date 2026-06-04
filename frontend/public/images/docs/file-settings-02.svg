@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" aria-label="File settings example" text-rendering="geometricPrecision" shape-rendering="crispEdges">
+  <defs><clipPath id="paper"><rect x="40" y="20" width="720" height="360" rx="10"/></clipPath></defs>
+  <rect width="800" height="400" fill="#f1f5f9"/>
+  <g clip-path="url(#paper)">
+  <rect x="40" y="20" width="720" height="360" fill="#ffffff"/>
+
+  <text x="64" y="60" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" fill="#94a3b8" letter-spacing="1.2" shape-rendering="geometricPrecision">FILE SETTINGS</text>
+  <text x="64" y="88" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#0f172a" shape-rendering="geometricPrecision">Password, watermark, ZIP output</text>
+
+  <!-- Left: preview of protected contract -->
+  <rect x="64" y="116" width="280" height="240" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="80" y="146" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="#0f172a" shape-rendering="geometricPrecision">Master Services Contract</text>
+  <text x="80" y="166" font-family="Menlo, Consolas, monospace" font-size="11" fill="#475569" shape-rendering="geometricPrecision">MSA-2026-0317-ACME</text>
+  <!-- Body lines -->
+  <g fill="#e2e8f0">
+    <rect x="80" y="184" width="248" height="6"/>
+    <rect x="80" y="200" width="220" height="6"/>
+    <rect x="80" y="216" width="240" height="6"/>
+    <rect x="80" y="232" width="180" height="6"/>
+  </g>
+  <!-- Watermark overlay -->
+  <text x="204" y="280" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#0f172a" opacity="0.12" transform="rotate(-20 204 280)" letter-spacing="4" shape-rendering="geometricPrecision">CONFIDENTIAL</text>
+  <!-- Lock indicator -->
+  <rect x="80" y="312" width="32" height="32" fill="#fef3c7" stroke="#f59e0b"/>
+  <rect x="88" y="324" width="16" height="14" fill="#f59e0b"/>
+  <rect x="92" y="318" width="8" height="8" fill="none" stroke="#f59e0b" stroke-width="2"/>
+  <text x="120" y="334" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" fill="#92400e" shape-rendering="geometricPrecision">Encrypted PDF</text>
+
+  <!-- Right: JSON config -->
+  <rect x="376" y="116" width="360" height="240" fill="#0f172a"/>
+  <text x="400" y="146" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" fill="#94a3b8" letter-spacing="1.2" shape-rendering="geometricPrecision">JSON PAYLOAD</text>
+  <text x="400" y="180" font-family="Menlo, Consolas, monospace" font-size="13" fill="#7dd3fc" shape-rendering="geometricPrecision">"pdfPassword"</text>
+  <text x="520" y="180" font-family="Menlo, Consolas, monospace" font-size="13" fill="#94a3b8" shape-rendering="geometricPrecision">: {</text>
+  <text x="416" y="204" font-family="Menlo, Consolas, monospace" font-size="13" fill="#a7f3d0" shape-rendering="geometricPrecision">"userPassword": "...",</text>
+  <text x="416" y="226" font-family="Menlo, Consolas, monospace" font-size="13" fill="#a7f3d0" shape-rendering="geometricPrecision">"restrictPrinting": true</text>
+  <text x="400" y="248" font-family="Menlo, Consolas, monospace" font-size="13" fill="#94a3b8" shape-rendering="geometricPrecision">},</text>
+  <text x="400" y="280" font-family="Menlo, Consolas, monospace" font-size="13" fill="#7dd3fc" shape-rendering="geometricPrecision">"watermark"</text>
+  <text x="500" y="280" font-family="Menlo, Consolas, monospace" font-size="13" fill="#94a3b8" shape-rendering="geometricPrecision">: {</text>
+  <text x="416" y="302" font-family="Menlo, Consolas, monospace" font-size="13" fill="#a7f3d0" shape-rendering="geometricPrecision">"text": "CONFIDENTIAL"</text>
+  <text x="400" y="324" font-family="Menlo, Consolas, monospace" font-size="13" fill="#94a3b8" shape-rendering="geometricPrecision">},</text>
+  <text x="400" y="346" font-family="Menlo, Consolas, monospace" font-size="13" fill="#7dd3fc" shape-rendering="geometricPrecision">"zipOutput"</text>
+  <text x="496" y="346" font-family="Menlo, Consolas, monospace" font-size="13" fill="#94a3b8" shape-rendering="geometricPrecision">: </text>
+  <text x="516" y="346" font-family="Menlo, Consolas, monospace" font-size="13" fill="#a7f3d0" shape-rendering="geometricPrecision">true</text>
+  </g>
+  <rect x="40" y="20" width="720" height="360" rx="10" fill="none" stroke="#cbd5e1"/>
+</svg>

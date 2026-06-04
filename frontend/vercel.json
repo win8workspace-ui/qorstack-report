@@ -1,0 +1,6 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "buildCommand": "BUILD_TARGET=marketing NEXT_PUBLIC_SITE_MODE=cloud node scripts/prepare-marketing-build.mjs && node scripts/fetch-supporters.mjs && BUILD_TARGET=marketing NEXT_PUBLIC_SITE_MODE=cloud next build",
+  "installCommand": "pnpm install --frozen-lockfile"
+}

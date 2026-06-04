@@ -1,0 +1,131 @@
+import type { CodeGenOptions } from './types'
+
+const toLiteral = (value: unknown) => JSON.stringify(value, null, 2)
+
+const getRequestType = (documentType: CodeGenOptions['documentType']) =>
+  documentType === 'excel' ? 'ExcelFromTemplateRequest' : 'PdfFromTemplateRequest'
+
+const getMethodName = (documentType: CodeGenOptions['documentType']) =>
+  documentType === 'excel' ? 'postRenderExcelTemplate' : 'postRenderWordTemplate'
+
+const getApiUrlExpression = (apiUrl?: string) => {
+  const fallback =
+    apiUrl && !apiUrl.includes('__NEXT_PUBLIC_SERVICE__') ? apiUrl : 'http://localhost:8080'
+  return `process.env.QORSTACK_API_URL || '${fallback}'`
+}
+
+const getTableDataName = (index: number) => `table${index + 1}Data`
+const getTableRowsName = (index: number) => `table${index + 1}Rows`
+
+export const generateNodejsExample = (data: any, options: CodeGenOptions = {}): string => {
+  const sdkData = normalizeSdkData(data)
+  const requestType = getRequestType(options.documentType)
+  const methodName = getMethodName(options.documentType)
+  const apiUrl = getApiUrlExpression(options.apiUrl)
+  const tableDataDeclarations = (sdkData.table || [])
+    .map((table: any, index: number) => {
+      if (!Array.isArray(table.rows) || table.rows.length === 0) return null
+      return formatTableDataDeclaration(table, index)
+    })
+    .filter(Boolean)
+    .join('\n')
+  const request = formatNodeRequest(sdkData)
+
+  return `// npm install qorstack-report-sdk
+import { QorstackApi, ${requestType} } from 'qorstack-report-sdk';
+
+const api = new QorstackApi({
+  baseUrl: ${apiUrl},
+  securityData: {
+    headers: {
+      'X-API-KEY': process.env.QORSTACK_API_KEY || 'YOUR_API_KEY'
+    }
+  }
+});
+
+${tableDataDeclarations ? `${tableDataDeclarations}\n\n` : ''}const request: ${requestType} = ${request};
+
+const response = await api.render.${methodName}(request);
+const { downloadUrl } = response.data;`
+}
+
+const formatValue = (value: unknown, level = 0): string => {
+  if (Array.isArray(value)) return formatArray(value, level)
+  if (value && typeof value === 'object') return formatObject(value as Record<string, unknown>, level)
+  return toLiteral(value)
+}
+
+const normalizeSdkData = (data: any) => {
+  const normalized = JSON.parse(JSON.stringify(data ?? {}))
+  if (normalized.image && typeof normalized.image === 'object') {
+    Object.values(normalized.image).forEach((image: any) => {
+      if (!image || typeof image !== 'object') return
+      if (image.fit === undefined && image.objectFit !== undefined) image.fit = image.objectFit
+      delete image.objectFit
+    })
+  }
+  return normalized
+}
+
+const indent = (level: number) => '  '.repeat(level)
+
+const canUseBareKey = (key: string) => /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(key)
+const formatPropertyKey = (key: string) => (canUseBareKey(key) ? key : JSON.stringify(key))
+
+const shouldSkipEmptyValue = (key: string, value: unknown) =>
+  (key === 'sort' || key === 'verticalMerge' || key === 'collapse' || key === 'conditionalFormat') &&
+  Array.isArray(value) &&
+  value.length === 0
+
+const formatObject = (obj: Record<string, unknown>, level = 0): string => {
+  const entries = Object.entries(obj).filter(([key, value]) => value !== undefined && !shouldSkipEmptyValue(key, value))
+  if (entries.length === 0) return '{}'
+  const lines = entries.map(([key, value]) => `${indent(level + 1)}${formatPropertyKey(key)}: ${formatValue(value, level + 1)}`)
+  return `{\n${lines.join(',\n')}\n${indent(level)}}`
+}
+
+const formatArray = (arr: unknown[], level = 0): string => {
+  if (arr.length === 0) return '[]'
+  const lines = arr.map(value => `${indent(level + 1)}${formatValue(value, level + 1)}`)
+  return `[\n${lines.join(',\n')}\n${indent(level)}]`
+}
+
+const formatItemAccessor = (col: string) => (canUseBareKey(col) ? `item.${col}` : `item[${JSON.stringify(col)}]`)
+
+const formatTableRowsMap = (table: any, index: number, level: number): string => {
+  const rows = Array.isArray(table.rows) ? table.rows : []
+  const columns = rows.length > 0 ? Object.keys(rows[0]) : []
+  if (columns.length === 0) return '[]'
+  const fieldLines = columns.map(col => `${indent(level + 1)}${formatPropertyKey(col)}: ${formatItemAccessor(col)} ?? ''`)
+  return `${getTableDataName(index)}.map((item, index) => ({\n${fieldLines.join(',\n')}\n${indent(level)}}));`
+}
+
+const formatTableDataDeclaration = (table: any, index: number): string => {
+  const rowsName = getTableRowsName(index)
+  return `// Example fetching data for table ${index + 1} from your service.
+const ${getTableDataName(index)} = await mockService.getExamplesAsync();
+const ${rowsName} = ${formatTableRowsMap(table, index, 0)}`
+}
+
+const formatTable = (table: any, index: number, level: number): string => {
+  const entries = Object.entries(table).filter(([key, value]) => value !== undefined && !shouldSkipEmptyValue(key, value))
+  const lines = entries.map(([key, value]) => {
+    if (key === 'rows') {
+      return `${indent(level + 1)}rows: ${getTableRowsName(index)}`
+    }
+    return `${indent(level + 1)}${formatPropertyKey(key)}: ${formatValue(value, level + 1)}`
+  })
+  return `{\n${lines.join(',\n')}\n${indent(level)}}`
+}
+
+const formatNodeRequest = (data: any): string => {
+  const entries = Object.entries(data).filter(([, value]) => value !== undefined)
+  const lines = entries.map(([key, value]) => {
+    if (key === 'table' && Array.isArray(value)) {
+      const tables = value.map((table, index) => `${indent(2)}${formatTable(table, index, 2)}`).join(',\n')
+      return `${indent(1)}table: [\n${tables}\n${indent(1)}]`
+    }
+    return `${indent(1)}${formatPropertyKey(key)}: ${formatValue(value, 1)}`
+  })
+  return `{\n${lines.join(',\n')}\n}`
+}
