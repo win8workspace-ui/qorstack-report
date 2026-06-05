@@ -5,15 +5,19 @@
 .PHONY: help \
         backend frontend \
         infra-up infra-down infra-logs \
-        up down logs \
+        up down logs verify init \
         test build \
         docker-build docker-push docker-release \
+        docker-buildx docker-buildx-api docker-buildx-web \
         migration
 
 # Default target
 IMAGE_API  ?= myregistry/report-api
 IMAGE_WEB  ?= myregistry/report-web
 IMAGE_TAG  ?= latest
+
+# Target platforms for multi-arch (buildx) publishing — amd64 (Intel) + arm64 (Apple Silicon)
+PLATFORMS  ?= linux/amd64,linux/arm64
 
 help:
 	@echo ""
@@ -36,12 +40,18 @@ help:
 	@echo "  Build & push your own images (fork workflow)"
 	@echo "    docker-build     Build backend + frontend images"
 	@echo "    docker-push      Push images to your registry"
-	@echo "    docker-release   Build + push in one step"
+	@echo "    docker-release   Build + push in one step (single-arch, host platform only)"
 	@echo "    Override: make docker-build IMAGE_API=myrepo/api IMAGE_WEB=myrepo/web IMAGE_TAG=v1"
 	@echo ""
+	@echo "  Multi-arch publish (amd64 + arm64 / Apple Silicon, requires buildx)"
+	@echo "    docker-buildx    Build + push multi-arch images in one step"
+	@echo "    Override: make docker-buildx IMAGE_API=myrepo/api IMAGE_WEB=myrepo/web IMAGE_TAG=v1"
+	@echo ""
 	@echo "  Other"
+	@echo "    init             Generate selfhost/.env with random secrets"
 	@echo "    test             Run all backend tests"
 	@echo "    build            Build backend + frontend"
+	@echo "    verify           Smoke-test a running stack (API /health + web)"
 	@echo "    migration name=<Name>  Add EF Core migration"
 	@echo ""
 
@@ -122,6 +132,40 @@ ifneq ($(IMAGE_TAG),latest)
 endif
 
 docker-release: docker-build docker-push
+
+# -----------------------------------------------------------------------------
+# Multi-arch publish (buildx) — amd64 (Intel) + arm64 (Apple Silicon)
+# Multi-arch images cannot be loaded into the local daemon, so these always push.
+# Requires a buildx builder:  docker buildx create --use
+# Override: make docker-buildx IMAGE_API=myrepo/api IMAGE_WEB=myrepo/web IMAGE_TAG=v1
+# -----------------------------------------------------------------------------
+
+docker-buildx: docker-buildx-api docker-buildx-web
+
+docker-buildx-api:
+	docker buildx build --platform $(PLATFORMS) \
+		-t $(IMAGE_API):$(IMAGE_TAG) $(if $(filter-out latest,$(IMAGE_TAG)),-t $(IMAGE_API):latest) \
+		-f backend/Dockerfile --push .
+
+docker-buildx-web:
+	docker buildx build --platform $(PLATFORMS) \
+		-t $(IMAGE_WEB):$(IMAGE_TAG) $(if $(filter-out latest,$(IMAGE_TAG)),-t $(IMAGE_WEB):latest) \
+		--push frontend/
+
+# -----------------------------------------------------------------------------
+# Verify — smoke-test a running stack (API /health + web UI)
+# Override hosts: make verify API_URL=http://host:8080 WEB_URL=http://host:3000
+# -----------------------------------------------------------------------------
+
+verify:
+	@bash selfhost/verify.sh
+
+# -----------------------------------------------------------------------------
+# Init — generate selfhost/.env with secure random secrets
+# -----------------------------------------------------------------------------
+
+init:
+	@bash selfhost/init.sh
 
 # -----------------------------------------------------------------------------
 # EF Core migration

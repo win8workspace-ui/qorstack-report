@@ -19,7 +19,7 @@ import {
 import DocLayout, { SidebarGroup, TocItem } from '@/components/docs/DocLayout'
 
 // --- Constants ---
-const API_BASE_URL = process.env.NEXT_PUBLIC_SERVICE || 'https://api.qorstack.dev'
+const API_BASE_URL = process.env.NEXT_PUBLIC_SERVICE || 'http://localhost:8080'
 
 // --- Types ---
 type Endpoint = 'template'

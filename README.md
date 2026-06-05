@@ -49,6 +49,18 @@ PostgreSQL/MinIO, Pro license activation, updating, stopping, and troubleshootin
 
 ---
 
+## For AI Agents
+
+Deploying or integrating Qorstack with an AI agent (Claude, Cursor, etc.)?
+
+- **[AGENTS.md](AGENTS.md)** — deploy, create an API key, the `X-API-Key` render
+  flow, and when to use Qorstack vs. calling Gotenberg directly.
+- **[mcp/](mcp/README.md)** — a Model Context Protocol server exposing list/generate
+  tools, so MCP-capable agents drive Qorstack natively instead of hand-writing REST calls.
+- **[llms.txt](llms.txt)** — machine-readable summary.
+
+---
+
 ## Features
 
 | Feature                                 | Open Source | Pro |
@@ -72,7 +84,7 @@ PostgreSQL/MinIO, Pro license activation, updating, stopping, and troubleshootin
 ## Template Syntax
 
 DOCX and XLSX templates use the same `{{variable}}` syntax.
-See the full reference at [report.qorstack.com/docs](http://report.qorstack.com/docs).
+See the full reference at [report.qorstack.com/docs](https://report.qorstack.com/docs).
 
 ---
 
@@ -80,10 +92,12 @@ See the full reference at [report.qorstack.com/docs](http://report.qorstack.com/
 
 | Document              | Link                                                                                           |
 | --------------------- | ---------------------------------------------------------------------------------------------- |
-| API Reference         | [backend/API_SPECIFICATION.md](backend/API_SPECIFICATION.md)                                   |
+| API Reference         | [backend/documents/02_API-REFERENCE.md](backend/documents/02_API-REFERENCE.md)                 |
 | DOCX Template Guide   | [backend/documents/03_TEMPLATE-GUIDE.md](backend/documents/03_TEMPLATE-GUIDE.md)               |
 | Excel Template Engine | [backend/documents/09_EXCEL-TEMPLATE-ENGINE.md](backend/documents/09_EXCEL-TEMPLATE-ENGINE.md) |
 | SDK Usage             | [sdk/README.md](sdk/README.md)                                                                 |
+| AI Agents & MCP       | [AGENTS.md](AGENTS.md), [mcp/README.md](mcp/README.md)                                         |
+| Changelog             | [CHANGELOG.md](CHANGELOG.md)                                                                   |
 
 ---
 

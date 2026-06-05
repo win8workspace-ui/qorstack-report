@@ -213,7 +213,7 @@ export const DemoStepApi = ({ onComplete }: { onComplete?: () => void }) => {
                   </div>
                   <p className='text-[9px] text-default-500'>142 KB · rendered in 0.82s</p>
                   <p className='mt-0.5 truncate font-mono text-[8.5px] text-default-400'>
-                    cdn.qorstack.dev/r/8af2.../invoice.pdf
+                    localhost:9000/reports/8af2.../invoice.pdf
                   </p>
                 </div>
                 <button className='inline-flex shrink-0 items-center gap-1 rounded bg-foreground px-2 py-1 font-label text-[9px] font-bold uppercase tracking-wider text-background'>

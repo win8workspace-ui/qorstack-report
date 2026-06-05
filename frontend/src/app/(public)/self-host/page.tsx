@@ -215,6 +215,20 @@ export default function SelfHostPage() {
       <section id='quick-start' className='border-b border-default-200/70 py-16 dark:border-default-200/10'>
         <div className='mx-auto max-w-4xl px-6'>
           <SectionLabel accent>Quick Start</SectionLabel>
+
+          <div className='mb-8'>
+            <p className='mb-3 text-[13px] text-default-600'>In a hurry? The whole thing:</p>
+            <CodeBlock
+              code={`git clone https://github.com/qorstack/qorstack-report.git
+cd qorstack-report/selfhost
+cp .env.example .env
+docker compose up -d`}
+              language='bash'
+              showHeader={false}
+              showLineNumbers={false}
+            />
+          </div>
+
           <SectionTitle>From zero to running in 4 steps.</SectionTitle>
 
           <div>

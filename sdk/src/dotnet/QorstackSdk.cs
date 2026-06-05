@@ -12,7 +12,7 @@ public partial class QorstackApi
     /// <summary>
     /// Initializes a new instance of the <see cref="QorstackApi"/> class.
     /// </summary>
-    /// <param name="baseUrl">The base URL of the API. If null, defaults to QORSTACK_API_URL or RENDOX_API_URL, then falls back to https://api.qorstack.dev.</param>
+    /// <param name="baseUrl">The base URL of the API. If null, defaults to QORSTACK_API_URL or RENDOX_API_URL, then falls back to http://localhost:8080.</param>
     /// <param name="apiKey">The API Key for authentication.</param>
     public QorstackApi(string? baseUrl = null, string? apiKey = null) : this(baseUrl!, new HttpClient())
     {
@@ -44,7 +44,7 @@ public partial class QorstackApi
             }
             else
             {
-                BaseUrl = "https://api.qorstack.dev";
+                BaseUrl = "http://localhost:8080";
             }
         }
     }

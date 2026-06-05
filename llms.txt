@@ -1,0 +1,25 @@
+# Qorstack Report
+
+> Self-hosted document API. Upload a Word/Excel template, POST JSON, get a PDF/DOCX/XLSX back. MIT core; optional Pro license for PDF password & watermark. Runs entirely on your infrastructure via Docker.
+
+It is template-based document generation: stored templates + JSON merge (variables, tables, images, QR/barcode) + API-key auth + result storage + generation history. It uses Gotenberg internally for the DOCX→PDF step, but unlike raw Gotenberg it manages templates, auth, storage, and history — use Qorstack when you merge JSON into stored templates and keep records; use Gotenberg directly only for stateless one-off file→PDF conversion.
+
+## Quickstart
+
+- Deploy: copy `selfhost/docker-compose.yml` + `.env.example`, then `cp .env.example .env && docker compose up -d`. Web UI at http://localhost:3000 (admin/admin), API at http://localhost:8080.
+- Smoke test: `bash selfhost/verify.sh` (or `make verify`).
+- Generate: `POST http://localhost:8080/render/word/template` with header `X-API-Key: <key>` and body `{ "templateKey": "...", "fileType": "pdf", "replace": { ... } }`. Returns `{ jobId, downloadUrl, status }`.
+
+## Docs
+
+- AGENTS.md — full agent integration guide (deploy, API key, render, when-vs-Gotenberg)
+- mcp/ — MCP server exposing list/get/generate tools (preferred for MCP-capable agents)
+- /docs (web UI) — human + API reference with request shapes
+- sdk/ — typed Node.js and .NET SDKs generated from the OpenAPI document
+- /self-host (web UI) and selfhost/ — self-host guide and env reference
+
+## Notes
+
+- Auth header is `X-API-Key`; `/render/*` returns 401 without a valid key.
+- Default admin user and `change-me-*` secrets are localhost-only — rotate before exposing.
+- Pin versions with `REPORT_API_TAG` / `REPORT_WEB_TAG` in `.env` (default `latest`).

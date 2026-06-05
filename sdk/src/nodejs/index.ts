@@ -25,8 +25,8 @@ export class QorstackApi<
       }
     }
 
-    // Fallback to default if still not found
-    baseUrl = baseUrl || "https://api.qorstack.dev";
+    // Fallback to the self-host default if still not found
+    baseUrl = baseUrl || "http://localhost:8080";
 
     super({
       baseUrl,

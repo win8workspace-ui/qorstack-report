@@ -10,7 +10,7 @@ const roadmapPhases = [
     title: 'Phase 1: Core Engine',
     items: [
       'Open Source (MIT)',
-      'Cloud API (REST)',
+      'REST API',
       'Docker self-hosting',
       'Word templates (DOCX)',
       'PDF output',

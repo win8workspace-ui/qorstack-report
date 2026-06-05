@@ -1,5 +1,8 @@
 # Build stage — context must be the repo root (context: .)
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+# Pin to the BUILD host's arch (never emulated): the .NET SDK/MSBuild crashes under
+# QEMU when cross-building. We publish framework-dependent (arch-neutral IL) output,
+# so the same build runs on every runtime arch via `dotnet <dll>`.
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /app
 
 # Copy solution config files first for layer caching

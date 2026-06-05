@@ -40,7 +40,7 @@ To use the SDK, you need an **API Key** from the Qorstack Portal.
 import { QorstackApi } from 'qorstack-report-sdk'
 
 // 1. Initialize the client
-// By default, it connects to https://api.qorstack.dev
+// By default, it connects to http://localhost:8080
 const qorstackApi = new QorstackApi({
   // baseUrl: "https://your-custom-url.com" // Optional: Override Base URL
 })
@@ -64,7 +64,7 @@ var httpClient = new HttpClient();
 httpClient.DefaultRequestHeaders.Add("X-API-KEY", "YOUR_API_KEY_HERE");
 
 // 2. Initialize the Client
-// By default, it connects to https://api.qorstack.dev
+// By default, it connects to http://localhost:8080
 var qorstackApi = new QorstackApi(httpClient: httpClient);
 
 // Optional: Override Base URL
