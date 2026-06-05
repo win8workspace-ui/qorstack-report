@@ -19,6 +19,8 @@ interface CodeBlockProps {
   downloadHref?: string
   /** Optional filename for the download attribute. */
   downloadFilename?: string
+  /** Wrap long lines instead of scrolling horizontally (good for prose / prompts). */
+  wrap?: boolean
 }
 
 const BG = '#050505'
@@ -36,7 +38,8 @@ export const CodeBlock = ({
   className = '',
   maxHeight,
   downloadHref,
-  downloadFilename
+  downloadFilename,
+  wrap = false
 }: CodeBlockProps) => {
   return (
     <div
@@ -85,7 +88,7 @@ export const CodeBlock = ({
           </div>
         )}
         <div
-        className={`no-scrollbar overflow-x-auto ${maxHeight === undefined ? '' : 'overflow-y-auto'}`}
+        className={`no-scrollbar ${wrap ? '' : 'overflow-x-auto'} ${maxHeight === undefined ? '' : 'overflow-y-auto'}`}
         style={maxHeight === undefined ? undefined : { maxHeight: typeof maxHeight === 'number' ? `${maxHeight}px` : maxHeight }}>
         <SyntaxHighlighter
           language={language}
@@ -98,7 +101,8 @@ export const CodeBlock = ({
             background: 'transparent',
             padding: '12px',
             minWidth: '100%',
-            width: 'max-content'
+            width: wrap ? '100%' : 'max-content',
+            ...(wrap ? { whiteSpace: 'pre-wrap', wordBreak: 'break-word' } : {})
           }}
           showLineNumbers={showLineNumbers}
           lineNumberStyle={{
@@ -108,7 +112,7 @@ export const CodeBlock = ({
             userSelect: 'none',
             color: LINE_NUM
           }}
-          wrapLongLines={false}>
+          wrapLongLines={wrap}>
           {code}
         </SyntaxHighlighter>
         </div>

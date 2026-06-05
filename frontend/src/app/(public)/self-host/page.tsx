@@ -111,13 +111,13 @@ export default function SelfHostPage() {
     <div className='min-h-screen bg-background'>
       {/* ── 1. Hero ── */}
       <section className='relative overflow-hidden border-b border-default-200/70 py-24 dark:border-default-200/10'>
-        <div className='pointer-events-none absolute inset-0 bg-dots opacity-20 dark:opacity-10' />
-        <div className='pointer-events-none absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/3 rounded-full bg-primary/8 blur-[120px] dark:bg-primary/15' />
+        <div className='bg-dots pointer-events-none absolute inset-0 opacity-20 dark:opacity-10' />
+        <div className='bg-primary/8 pointer-events-none absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/3 rounded-full blur-[120px] dark:bg-primary/15' />
 
         <div className='relative mx-auto max-w-4xl px-6 text-center'>
           <motion.div
             {...fadeUp}
-            className='mx-auto mb-5 inline-flex items-center gap-2 rounded-full bg-primary/8 px-3.5 py-1.5 font-label text-[11px] font-bold uppercase tracking-[0.15em] text-primary ring-1 ring-inset ring-primary/20'>
+            className='bg-primary/8 mx-auto mb-5 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 font-label text-[11px] font-bold uppercase tracking-[0.15em] text-primary ring-1 ring-inset ring-primary/20'>
             <Icon icon='lucide:server' className='h-3.5 w-3.5' />
             Self-Host Guide
           </motion.div>
@@ -166,7 +166,7 @@ export default function SelfHostPage() {
               href={GITHUB_URL}
               target='_blank'
               rel='noopener noreferrer'
-              className='inline-flex items-center gap-2 rounded-md bg-content2 px-6 py-3 font-label text-sm font-bold tracking-wide text-foreground transition-colors hover:bg-content3 dark:bg-white/8 dark:hover:bg-white/12'>
+              className='dark:bg-white/8 dark:hover:bg-white/12 inline-flex items-center gap-2 rounded-md bg-content2 px-6 py-3 font-label text-sm font-bold tracking-wide text-foreground transition-colors hover:bg-content3'>
               <Icon icon='lucide:github' className='h-4 w-4 text-default-500' />
               View on GitHub
             </a>
@@ -230,14 +230,25 @@ docker compose up -d`}
           </div>
 
           <div className='mb-8'>
-            <p className='mb-3 text-[13px] text-default-600'>
-              Or let your AI agent do it — paste this prompt:
-            </p>
+            <p className='mb-3 text-[13px] text-default-600'>Or let your AI agent do it — paste this prompt:</p>
             <CodeBlock
-              code={`Set up Qorstack Report on this machine, end to end. Clone it and read its AGENTS.md, then follow that guide to deploy with Docker (git clone https://github.com/qorstack/qorstack-report.git). Verify it is actually serving (bash selfhost/verify.sh), create an API key, and run one real test generation using examples/invoice/ to prove the pipeline. On Apple Silicon (Mac/Colima) the images are multi-arch, so no emulation is needed. If a step fails, read the container logs, fix the root cause, retry, and report what you changed.`}
+              code={`Deploy Qorstack Report on this machine with Docker and confirm it's running. Use the prebuilt images — do NOT build images, edit the Dockerfile, or change project files (the only allowed edit is remapping a clashing port, below). If anything else is blocked, STOP and report it; don't work around it.
+
+  git clone https://github.com/qorstack/qorstack-report.git
+  cd qorstack-report/selfhost
+  cp .env.example .env
+
+Before starting, make sure these host ports are free: 3000 (web), 8080 (API), 9000/9001 (MinIO), 5432 (Postgres). If one is in use, remap the host side in docker-compose.yml first (e.g. "8081:8080") and say what you changed — for the web UI set FRONTEND_PORT in .env; if you move the API port, also set API_URL in .env so the web UI can reach it.
+
+  docker compose up -d   # first run pulls images (~2 min); multi-arch, Apple Silicon OK
+
+Then verify and report — that's the whole job: run "bash selfhost/verify.sh" (expect "All checks passed") and report the web UI URL, admin login (admin / admin), the verify output, and any ports you remapped.
+
+Optional, in the WEB UI (not via scripts): upload examples/invoice/invoice.docx, create an API key (Settings -> API Keys), and render examples/invoice/data.json (see examples/invoice/README.md).`}
               language='text'
               showHeader={false}
               showLineNumbers={false}
+              wrap
             />
           </div>
 
@@ -273,11 +284,17 @@ docker compose up -d`}
               title='Rename .env.example → .env'
               description={
                 <>
-                  Place both files in the same folder, then rename. The defaults are safe for{' '}
-                  <Pill>localhost</Pill> — you can change secrets later before going to production.
+                  Place both files in the same folder, then rename. The defaults are safe for <Pill>localhost</Pill> —
+                  you can change secrets later before going to production.
                 </>
               }>
-              <CodeBlock code='mv .env.example .env' language='bash' showHeader={false} compact showLineNumbers={false} />
+              <CodeBlock
+                code='mv .env.example .env'
+                language='bash'
+                showHeader={false}
+                compact
+                showLineNumbers={false}
+              />
             </Step>
 
             <Step
@@ -291,9 +308,7 @@ docker compose up -d`}
                 compact
                 showLineNumbers={false}
               />
-              <p className='mt-2 text-[12.5px] text-default-500'>
-                First run takes ~1–2 minutes while images download.
-              </p>
+              <p className='mt-2 text-[12.5px] text-default-500'>First run takes ~1–2 minutes while images download.</p>
             </Step>
 
             <Step
@@ -577,9 +592,7 @@ MINIO_SECRET_KEY=...`}
               </div>
             </div>
 
-            <p className='mt-4 text-[11.5px] text-default-500'>
-              License is validated offline — no call to Qorstack.
-            </p>
+            <p className='mt-4 text-[11.5px] text-default-500'>License is validated offline — no call to Qorstack.</p>
           </div>
 
           <p className='mt-5 text-[12.5px] text-default-500'>
@@ -614,7 +627,13 @@ docker compose up -d`}
             </div>
             <div>
               <Subhead>Stop (keep data)</Subhead>
-              <CodeBlock code='docker compose down' language='bash' showHeader={false} compact showLineNumbers={false} />
+              <CodeBlock
+                code='docker compose down'
+                language='bash'
+                showHeader={false}
+                compact
+                showLineNumbers={false}
+              />
             </div>
             <div>
               <p className='mb-3 text-[11px] font-bold uppercase tracking-wider text-danger-600'>Stop + wipe data</p>
@@ -683,7 +702,7 @@ docker compose logs font-syncer`}
               href={`${GITHUB_URL}/issues`}
               target='_blank'
               rel='noopener noreferrer'
-              className='inline-flex items-center gap-2 rounded-md bg-content2 px-4 py-2.5 font-label text-[12px] font-bold tracking-wide text-foreground transition-colors hover:bg-content3 dark:bg-white/8 dark:hover:bg-white/12'>
+              className='dark:bg-white/8 dark:hover:bg-white/12 inline-flex items-center gap-2 rounded-md bg-content2 px-4 py-2.5 font-label text-[12px] font-bold tracking-wide text-foreground transition-colors hover:bg-content3'>
               <Icon icon='lucide:message-circle-question' className='h-3.5 w-3.5 text-default-500' />
               Report an issue
             </a>

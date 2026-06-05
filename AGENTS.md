@@ -5,18 +5,37 @@ Guidance for AI coding agents (Claude, Cursor, etc.) deploying or integrating
 
 ## Copy-paste setup prompt
 
-Want your AI to set everything up? Paste this to your agent (it leans on the rest
-of this file, so there's nothing to repeat):
+Want your AI to set everything up? Paste this to your agent — it's self-contained
+and bounded so the agent deploys and verifies without rabbit-holing:
 
-> Set up **Qorstack Report** on this machine, end to end. Clone it and read its
-> `AGENTS.md`, then follow that guide to deploy the full stack with Docker
-> (`git clone https://github.com/qorstack/qorstack-report.git`). **Verify** it is
-> actually serving (`bash selfhost/verify.sh`, or curl `http://localhost:8080/health`),
-> create an API key, and run **one real test generation** to prove the pipeline —
-> use the ready-made `examples/invoice/` (upload `invoice.docx`, then render with
-> `examples/invoice/data.json`). On Apple Silicon (Mac/Colima) the images are
-> multi-arch, so no emulation is needed. If any step fails, read the container
-> logs, fix the root cause, retry, and report what you changed.
+> Deploy Qorstack Report on this machine with Docker and confirm it's running.
+> Use the prebuilt images — do NOT build images, edit the Dockerfile, or change
+> project files (the only allowed edit is remapping a clashing port, below). If
+> anything else is blocked, STOP and report it; don't work around it.
+>
+> ```bash
+> git clone https://github.com/qorstack/qorstack-report.git
+> cd qorstack-report/selfhost
+> cp .env.example .env
+> ```
+>
+> Before starting, make sure these host ports are free: 3000 (web), 8080 (API),
+> 9000/9001 (MinIO), 5432 (Postgres). If one is in use, remap the host side in
+> docker-compose.yml first (e.g. `"8081:8080"`) and say what you changed — for the
+> web UI set `FRONTEND_PORT` in `.env`; if you move the API port, also set
+> `API_URL` in `.env` so the web UI can reach it.
+>
+> ```bash
+> docker compose up -d   # first run pulls images (~2 min); multi-arch, Apple Silicon OK
+> ```
+>
+> Then verify and report — that's the whole job: run `bash selfhost/verify.sh`
+> (expect "All checks passed") and report the web UI URL, admin login
+> (`admin` / `admin`), the verify output, and any ports you remapped.
+>
+> Optional, in the WEB UI (not via scripts): upload `examples/invoice/invoice.docx`,
+> create an API key (Settings → API Keys), and render `examples/invoice/data.json`
+> (see `examples/invoice/README.md`).
 
 ## What it is
 
