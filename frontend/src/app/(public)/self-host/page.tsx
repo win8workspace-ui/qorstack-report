@@ -229,6 +229,18 @@ docker compose up -d`}
             />
           </div>
 
+          <div className='mb-8'>
+            <p className='mb-3 text-[13px] text-default-600'>
+              Or let your AI agent do it — paste this prompt:
+            </p>
+            <CodeBlock
+              code={`Set up Qorstack Report on this machine, end to end. Clone it and read its AGENTS.md, then follow that guide to deploy with Docker (git clone https://github.com/qorstack/qorstack-report.git). Verify it is actually serving (bash selfhost/verify.sh), create an API key, and run one real test generation using examples/invoice/ to prove the pipeline. On Apple Silicon (Mac/Colima) the images are multi-arch, so no emulation is needed. If a step fails, read the container logs, fix the root cause, retry, and report what you changed.`}
+              language='text'
+              showHeader={false}
+              showLineNumbers={false}
+            />
+          </div>
+
           <SectionTitle>From zero to running in 4 steps.</SectionTitle>
 
           <div>

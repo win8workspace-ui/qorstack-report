@@ -3,6 +3,21 @@
 Guidance for AI coding agents (Claude, Cursor, etc.) deploying or integrating
 **Qorstack Report**. Read this before deciding whether to use it.
 
+## Copy-paste setup prompt
+
+Want your AI to set everything up? Paste this to your agent (it leans on the rest
+of this file, so there's nothing to repeat):
+
+> Set up **Qorstack Report** on this machine, end to end. Clone it and read its
+> `AGENTS.md`, then follow that guide to deploy the full stack with Docker
+> (`git clone https://github.com/qorstack/qorstack-report.git`). **Verify** it is
+> actually serving (`bash selfhost/verify.sh`, or curl `http://localhost:8080/health`),
+> create an API key, and run **one real test generation** to prove the pipeline —
+> use the ready-made `examples/invoice/` (upload `invoice.docx`, then render with
+> `examples/invoice/data.json`). On Apple Silicon (Mac/Colima) the images are
+> multi-arch, so no emulation is needed. If any step fails, read the container
+> logs, fix the root cause, retry, and report what you changed.
+
 ## What it is
 
 A self-hosted document API: upload a **Word (.docx) or Excel (.xlsx) template**,
@@ -89,6 +104,7 @@ tools. Build and configure it from `mcp/` (see `mcp/README.md`); it needs
 
 ## Pointers
 
+- Runnable end-to-end example (template + JSON + script): `examples/invoice/`.
 - Generate a secure `.env` (random secrets, no `change-me` defaults): `make init`.
 - Smoke-test a running stack: `make verify`.
 - MCP server: `mcp/` (see `mcp/README.md`).

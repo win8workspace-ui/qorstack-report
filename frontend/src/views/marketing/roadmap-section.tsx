@@ -6,37 +6,46 @@ import { motion } from 'framer-motion'
 const roadmapPhases = [
   {
     status: 'live' as const,
-    label: 'Released',
-    title: 'Phase 1: Core Engine',
+    label: 'Shipped',
+    title: 'Shipped',
     items: [
       'Open Source (MIT)',
       'REST API',
       'Docker self-hosting',
-      'Word templates (DOCX)',
-      'PDF output',
+      'Multi-arch images (Apple Silicon)',
+      'Word + Excel templates',
+      'PDF · DOCX · XLSX output',
       'Dynamic variables & tables',
       'Sorting, grouping & aggregates',
       'Image injection',
       'QR Code & Barcode',
       '1,500+ Google Fonts',
       'Thai language support',
-      'Template version control',
+      'Template version history',
       'Live PDF preview',
       'Node.js & .NET SDK',
+      'AGENTS.md + MCP server',
+      'Runnable examples',
       'Analytics dashboard'
     ]
   },
   {
     status: 'next' as const,
     label: 'In Progress',
-    title: 'Phase 2: Visual Designer',
-    items: ['DOCX & Excel output', 'Python & Go SDK', 'Batch generation API', 'Helm chart for K8s']
+    title: 'Now',
+    items: ['Lite single-container mode', 'Latency benchmark vs. raw Gotenberg', 'Clearer template-error messages']
   },
   {
     status: 'later' as const,
     label: 'Planned',
-    title: 'Phase 3: AI Document Logic',
-    items: ['On-premise enterprise', 'Webhooks & callbacks', 'Template marketplace']
+    title: 'Next',
+    items: ['MCP package on npm', 'Python & Go SDK', 'Batch generation API']
+  },
+  {
+    status: 'later' as const,
+    label: 'Exploring',
+    title: 'Exploring',
+    items: ['Helm chart for Kubernetes', 'Webhooks & callbacks', 'Template marketplace']
   }
 ]
 

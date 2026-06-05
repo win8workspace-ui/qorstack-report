@@ -54,7 +54,8 @@ PostgreSQL/MinIO, Pro license activation, updating, stopping, and troubleshootin
 Deploying or integrating Qorstack with an AI agent (Claude, Cursor, etc.)?
 
 - **[AGENTS.md](AGENTS.md)** — deploy, create an API key, the `X-API-Key` render
-  flow, and when to use Qorstack vs. calling Gotenberg directly.
+  flow, when to use Qorstack vs. Gotenberg, and a copy-paste prompt to have your
+  AI set it all up.
 - **[mcp/](mcp/README.md)** — a Model Context Protocol server exposing list/generate
   tools, so MCP-capable agents drive Qorstack natively instead of hand-writing REST calls.
 - **[llms.txt](llms.txt)** — machine-readable summary.
@@ -113,6 +114,17 @@ See the full reference at [report.qorstack.com/docs](https://report.qorstack.com
 | XLSX engine | ClosedXML                                              |
 | PDF engine  | Gotenberg 8                                            |
 | Auth        | JWT and OAuth                                          |
+
+---
+
+## Roadmap
+
+- **Shipped** — REST API; DOCX/XLSX → PDF/DOCX/XLSX; multi-arch images (incl. Apple Silicon); AGENTS.md + MCP server; runnable examples.
+- **Now** — lite single-container mode; latency benchmark vs. raw Gotenberg; clearer template-error messages.
+- **Next** — MCP package on npm; Python & Go SDKs; batch generation API.
+- **Exploring** — template marketplace; webhooks.
+
+Want something prioritized? [Open an issue](https://github.com/qorstack/qorstack-report/issues).
 
 ---
 

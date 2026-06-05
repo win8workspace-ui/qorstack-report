@@ -13,6 +13,7 @@ It is template-based document generation: stored templates + JSON merge (variabl
 ## Docs
 
 - AGENTS.md — full agent integration guide (deploy, API key, render, when-vs-Gotenberg)
+- examples/invoice/ — runnable end-to-end demo (DOCX template + JSON + script → PDF)
 - mcp/ — MCP server exposing list/get/generate tools (preferred for MCP-capable agents)
 - /docs (web UI) — human + API reference with request shapes
 - sdk/ — typed Node.js and .NET SDKs generated from the OpenAPI document
