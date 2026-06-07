@@ -15,7 +15,6 @@ FROM ://microsoft.com
 WORKDIR /app
 COPY --from=build-env /app/out .
 
-# Render dynamically maps inbound traffic to the port your application exposes.
-# Using 8080 is perfectly compatible with Render's discovery tool.
+# Expose port 8080 for Render's routing layer
 EXPOSE 8080
 ENTRYPOINT ["dotnet", "Qorstack.Report.dll"]
